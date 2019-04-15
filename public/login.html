@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/univ.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div id="headerr">
+        
+    </div>
+    <div id="body">
+        <div id="login1">
+            <div class="loginhard">
+                <span><img src="img/title_left.png" alt=""></span> <span>登录美食杰 </span><span><img src="img/title_right.png"
+                        alt=""></span>
+            </div>
+            <div class="loginbody">
+                    <div id="ehintt"></div>
+                <div class="">
+                    <input type="text" class="text1" id="email" placeholder="请输入手机号/邮箱/昵称">
+                </div>
+                <div id="ehint"></div>
+                <div class="">
+                    <input type="password" class="password" id="pwd" placeholder="请输入密码">
+                </div>
+                <div id="phint"></div>
+                <div class="">
+                    <label class="gd fl"><input type="checkbox" id="auto_login_next" value="auto" class=""> 下次自动登录</label>
+                    <a class="gd fr">忘记密码？</a>
+                </div>
+                <div style=" clear: both;"> </div>
+                    <a type="submit" class="loginbnt" id="sbm">登录</a>
+                    <a class="mb50" href="">
+                            还没有账号？免费注册</a> 
+                            <table></table>
+            </div>
+        </div>
+
+    </div>
+    <iframe src="footer.html" frameborder="0"></iframe>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script>
+    $(function () {
+			function su(a, id) {
+				if (!a) {
+					$("#" + id).focus();
+					return
+				}
+			}
+			var pt = 0;
+			var re = /^[\w]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[\w]{2,4}$/;
+			var pre = /^[\w]{6,17}$/
+			var a, b, c, f;
+			function zys(e, re, tru, trusxz, fale, falesxz) {
+				var str = $(e.target).val();
+				if (re.test(str)) {
+					$(e.target).parent().next().html(tru).css("color", trusxz);
+					return true;
+				} else {
+					$(e.target).parent().next().html(fale).css("color", falesxz);
+					return false;
+
+				}
+			}
+			$(".text1").on("input", function (e) {
+				zys(e, re, "邮箱格式正确", "#8fc31f", "请输入正确的邮箱格式", "#7ecef4");//#8fc31f 绿
+			}).blur(function (e) {//#7ecef4 蓝色
+               a = zys(e, re, "邮箱格式正确", "#8fc31f", "请输入正确的邮箱格式", "#ec5541");
+			});
+
+			$("#pwd").on("input", function (e) {
+				zys(e, pre, "密码格式正确", "#8fc31f", "密码的长度应为6-16位", "#7ecef4");
+				$("#agpwd").val("");
+			}).blur(function (e) {
+				b = zys(e, pre, "密码格式正确", "#8fc31f", "密码的长度应为6-16位", "#ec5541");
+			});
+			$("#sbm").click(function () {
+				console.log(a, b, c);
+				if (!a) {
+					$("#email").focus();
+					return
+				};
+				if (!b) {
+					$("#pwd").focus();
+					return
+				};
+				
+				var data = {};
+				data.email = $("#email").val();
+				data.upwd = $("#pwd").val();
+						$.ajax({
+					url: "http://localhost:3000/login",
+					type: "post",
+					data: data,
+					dataType: "json", //自动JSON.parse(),
+					success: function (data) {
+                        console.log(data);
+						if(data.code<0){
+                            $("#ehintt").html("用户名或密码错误").css({color: "#fff",background:"#ec5541"});
+                            $("#ehint").html("");
+                            $("#phint").html("");
+						}else	{				
+						sessionStorage.setItem("uid",data.data[0].uid);
+						window.location.href = "http://127.0.0.1:3000/index.html";
+						
+						}
+					}
+				})
+				
+				// if(){
+				// 	$("#email").focus()
+				// }
+				// $("#pwd")
+				// $("#agpwd")
+			})
+			
+			//				$.ajax({
+			//					url: "http://localhost:3000/user/detail?email=" + email.value,
+			//					type: "post",
+			//					data: data,
+			//					dataType: "json", //自动JSON.parse(),
+			//					success: function(data) {
+			//						window.location.href = "http://127.0.0.1:3000/index.html";
+			//					}
+			//				})	
+
+			// function dis1() {onblur
+			//     var xhr = new XMLHttpRequest();
+			//     xhr.onreadystatechange = () => {
+			//         if (xhr.readyState == 4 && xhr.status == 200) {
+			//             var result = xhr.responseText;
+			//             if (result == "1") {
+			//                 ehint.innerHTML = "该邮箱已被注册";
+			//             } else { pt = 1 }
+			//         }
+			//     }
+			//     xhr.open('get', "/user/detail?email=" + email.value, true);
+			//     xhr.send(null);
+			// }
+
+			// function sub() {
+			//     //	console.log(hinte()+"  "+hinta()+"  "+hintp()+"  "+pt);
+			//     if (pt == 0) { ehint.innerHTML = "该邮箱已被注册"; }
+			//     if (hinte() && hinta() && hintp() && pt == 1) {
+			//         pt = 0;
+			//         document.getElementById("formid").submit();
+			//     }
+			// };
+		})
+    </script>
+</body>
+
+
+</html>

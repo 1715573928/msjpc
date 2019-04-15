@@ -1,0 +1,178 @@
+#body{
+   width: 1000px;
+   margin: 0 auto;  
+}
+#body::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.filtrate{
+    background: #fff;     
+    position: sticky; 
+    top:20px;
+ 
+}
+.filtrate>div,
+.tree>li{ 
+    line-height: 50px; 
+    color: #333;
+    text-indent: 14px;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+    width: 232px;
+   
+} 
+.filtrate>div{
+    text-align: center;
+    color: red;
+   font-size: 15px;
+}
+.tree>li:hover{
+background: #eee;}
+.tree>li div{display: none; }
+.tree li div{
+    padding: 14px 0px 6px 14px;
+    width: 218px;
+    background: #fafafa;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    float: left;
+}
+
+.tree li div a {
+    display: block;
+    float: left;
+    margin: 0px 8px 8px 0px;
+    display: block;
+    height: 30px;
+    width: 96px;
+    border: 1px solid #eee;
+    background: #fff;
+    color: #333;
+    line-height: 30px;
+    font-size: 12px;
+    text-align: center;
+    overflow: hidden;
+    text-indent: 0px;
+	cursor:pointer;
+}
+.tree li  img{
+    margin: 23px 10px ;
+}
+.tree li div a:hover {
+    border: 1px solid #aaa;
+    background: #fff url(../img/liststyle1_icons.png) right -66px no-repeat;
+}
+#body .open{transform:rotate(180deg);
+       margin:23px 20px  ;}
+#body .open~div{ display: block; }
+.newhot {
+	margin: auto;
+	width: 232px;
+	height: 332px;
+}
+
+.nhtextout {
+	width: 232px;
+	height: 100px;
+	overflow: hidden;
+	margin-top: -4px;
+}
+
+.nhtext {
+	width: 232px;
+	height: 100px;
+	padding: 15px;
+	box-sizing: border-box
+}
+
+.ntup {
+	background: #fff;
+}
+
+.ntdown {
+	background: #ddd;
+}
+
+.li {
+	list-style: none;
+	height: 32px;
+	width: 208px;
+	text-indent: 32px;
+	line-height: 32px;
+	color: #666;
+	font-size: 14px;
+}
+
+.nhtext1 {
+	transition: 0.4s linear
+}
+
+.newhot:hover>a>div>div {
+	transform: translateY(-100px);
+}
+
+.li1 {
+	background: url(../img/bq.png) -10px -127px no-repeat
+}
+
+.li2 {
+	background: url(../img/bq.png) -10px -43px no-repeat
+}
+.newhot {
+	float: left;
+	margin-bottom: 20px;
+}
+
+.newhot:not(:nth-child(3n)) {
+	margin-right: 24px;
+}
+.gd {
+	float: right;
+	font-size: 13px;
+	color: #555;
+	margin-top: 10px;
+}
+
+.gd1{font-size: 13px;
+	color: #555;
+    margin-top: 10px;}
+   
+#paging>a{
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 13px;
+    min-width: 14px;
+    text-align: center;
+    margin-right: 1px;
+    background: #f5f5f5;  
+    color: #666;
+    font-size: 14px;
+
+   
+}
+#paging .text{
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #f5f5f5;
+    background: #fff;
+    width: 38px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+}
+.loginbnt{
+    display: block;
+    height: 42px;
+   
+    line-height: 40px;
+    font-size: 15px;
+    color: #fff;
+    padding: 0px 24px;
+    background: #ec5541;
+    border-radius: 5px;
+    margin:0 auto;
+    width: 720px;
+}

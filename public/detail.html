@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="css/univ.css">
+		<link rel="stylesheet" href="css/detail.css">
+	</head>
+
+	<body>
+		<div id="headerr">
+			
+		</div>
+		<div id="body">
+			<div id="cp11" class="cpro">
+				
+				
+			</div>
+			<div id="yongliao" class="procl fr">
+				
+			</div>
+			<div id="zhyb" class="probz fl">
+				
+			</div>
+
+		</div>
+		</div>
+		<iframe src="footer.html" frameborder="0"></iframe>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/header.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var mid = location.search.split("=")[1];
+				var a1, a2, a3, a4;
+				$.ajax({
+					url: "http://localhost:3000/lest?mid=" + mid,
+					type: "get",
+					dataType: "json", //自动JSON.parse(),
+					success: function(data) {
+						var datas = data.data[0];
+						console.log(datas);
+						switch(datas.diffculty) {
+							case "新手尝试":a1 = 2;break;
+							case "初级入门":a1 = 3;break;
+							case "初中水平":a1 = 4;break;
+							case "中级掌勺":a1 = 6;break;
+							case "高级厨师":a1 = 7;break;
+							case "厨神级":a1 = 9;break;
+						}
+						switch(datas.rtime){
+							case "5分钟":a2 = 1;break;
+							case "10分钟":a2 = 2;break;
+							case "15分钟":a2 = 3;break;
+							case "30分钟":a2 = 4;break;
+							case "60分钟":a2 = 5;break;
+							case "90分钟":a2 = 6;break;
+							case "2小时":a2 = 7;break;
+							case "数小时":a2 = 8;break;
+							case "一天":a2 = 9;break;
+						}
+						switch(datas.ctime) {
+							case "5分钟":a3 = 2;break;
+							case "30分钟":a3 = 3;break;
+							case "60分钟":a3 = 4;break;
+							case "数小时":a3 = 6;break;
+							case "一天":a3 = 7;break;
+							case "数天":a3 = 9;break;
+						}
+						switch(datas.pnum) {
+							case "1人份":a4 = 2;break;
+							case "2人份":a4 = 3;break;
+							case "3人份":a4 = 4;break;
+							case "4人份":a4 = 6;break;
+							case "5人份":a4 = 7;break;
+							case "未知":a4 = 9;break;
+						}
+						var html6 = `<div class="fl proimg"><img src="${datas.endp}" alt="" /></div>
+				<div  class="cpror">
+						<div class="protitle">${datas.mtitle}</div>
+					<div class="proorr">
+						<div class="pro1">
+							<p>工艺</p>
+							<a>${datas.craft}</a>
+						</div>
+						<div class="pro11">
+							<p>难度</p>
+							<span class="pro2 pro21"></span>
+							<span style="background-position: 0px -${20*a1}px;"></span>
+							<div>${datas.diffculty}</div>
+
+						</div>
+						<div class="pro11">
+							<p>人数</p>
+							<span class="pro2 pro22"></span>
+							<span style="background-position: 0px -${20*a4}px;"></span>
+							<div>${datas.pnum}</div>
+
+						</div>
+						<div class="pro1">
+							<p>口味</p>
+							<a>${datas.taste}</a>
+						</div>
+						<div class="pro11">
+							<p>准备时间</p>
+							<span class="pro2 pro23"></span>
+							<span style="background-position: 0px -${20*a2}px;"></span>
+							<div>${datas.rtime}</div>
+						</div>
+						<div class="pro11">
+							<p>烹饪时间</p>
+							<span class="pro2 pro24"></span>
+							<span style="background-position: 0px -${20*a3}px;"></span>
+							<div>${datas.ctime}</div>
+						</div>
+					</div>
+						
+				</div>
+				<div style="padding-left: 10px;	margin-left: 328px;max-height:142px; overflow:hidden;width: 660px;"><strong class="prog">“</strong>
+					<p class="pronr">${datas.story}</p><strong class="prog">”</strong></div>`;
+					$("#cp11").append(html6);
+					html6=`<div class="proyl">用料</div><div class="prozl1"><span>主料</span>
+					<ul class="fr">`
+					var zll = eval("("+datas.material+")");
+				
+					for(var i = 0;i<zll.length;i++){
+						html6+=`<li>
+							<div class="clzl">
+								<div class="fl clzlname">${zll[i][0]}</div>
+							<div class="fr clzlyl">${zll[i][1]}</div>
+							</div>
+						</li>`
+					}	
+					html6+=`</ul>
+				</div>
+				<div style="clear: both;"></div>
+				<div class="clfl"><span>輔料</span>
+					<ul class="fr">`
+					var fll = eval("("+datas.acc+")");
+					for(var i=0;i<fll.length;i++){
+						html6+=`<li>
+							<div class="clzl">
+								<div class="fl clzlname">${fll[i][0]}</div>
+								<div class="fr clzlyl">${fll[i][1]}</div>
+							</div>
+						</li>`
+					}
+				html6+=`</ul>
+					<div style="clear: both;"></div>
+				</div>`	
+					$("#yongliao").append(html6);
+					
+					html6=`<div class="proyl">
+					<span>${datas.mtitle}</span>的做法</div>`
+					var bzz=eval("("+datas.step+")");
+					for(var i=0;i<bzz.length;i++){
+						html6+=`<div class="probzx">
+					<div class="fl">${bzz[i][0]}</div>
+					<div class="fl">
+						<div>${bzz[i][2]}</div>
+						<div><img src="${bzz[i][1]}" alt="" /></div>
+					</div>
+				</div>`
+					}
+				html6+=`
+				<div class="proyl">
+					<span>${datas.mtitle}</span>成品图</div>
+				<div class="procpt fr"><img class="probzxright" src="${datas.finall}" /></div>
+				<div class="proyl clearb">
+					烹饪技巧</div>
+				<div class=" fr pronr probzxright">${datas.skill}"</div>
+
+				<div style="clear: both;"></div>`;
+				$("#zhyb").append(html6);
+					}
+					
+				})
+			})
+		</script>
+	</body>
+
+</html>

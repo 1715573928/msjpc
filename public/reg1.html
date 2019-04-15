@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/univ.css">
+	<link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+	<div id="headerr">
+
+	</div>
+	<div id="body">
+		<div id="login1">
+			<div class="loginhard">
+				<span><img src="img/title_left.png" alt=""></span> <span>注册美食杰 </span><span><img src="img/title_right.png" alt=""></span>
+			</div>
+			<div class="loginbody">
+				<div id="ehintt"></div>
+				<div>
+					<input class="text1" type="text" id="email" placeholder="请输入您的邮箱" >
+				</div>
+				<div id="ehint"></div>
+				<div>
+					<input class="password" type="password" id="pwd" placeholder="请输入您的密码">
+				</div>
+				<div id="phint"></div>
+				<div>
+					<input class="password" type="password" id="agpwd" placeholder="请再次输入密码">
+				</div>
+				<div id="ahint"></div>
+				<div class="gd fl">
+					<input type="checkbox" id="deal" checked>我已阅读并且同意<span>美食杰用户使用协议</span>
+				</div>
+				<div style=" clear: both;"></div>
+				<div>
+					<a id="sbm" class="loginbnt">注册</a>
+				</div>
+				<a class="mb50" href="login.html">
+					已有账号？马上登陆</a>
+				<table></table>
+			</div>
+		</div>
+	</div>
+	<iframe src="footer.html" frameborder="0"></iframe>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/header.js"></script>
+	<script>
+		$(function () {
+			function su(a, id) {
+				if (!a) {
+					$("#" + id).focus();
+					return
+				}
+			}
+			var pt = 0;
+			var re = /^[\w]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[\w]{2,4}$/;
+			var pre = /^[\w]{6,17}$/
+			var a, b, c, f;
+			function zys(e, re, tru, trusxz, fale, falesxz) {
+				var str = $(e.target).val();
+				if (re.test(str)) {
+					$(e.target).parent().next().html(tru).css("color", trusxz);
+					return true;
+				} else {
+					$(e.target).parent().next().html(fale).css("color", falesxz);
+					return false;
+
+				}
+			}
+			$(".text1").on("input", function (e) {
+				zys(e, re, "邮箱格式正确", "#8fc31f", "请输入正确的邮箱格式", "#7ecef4");//#8fc31f 绿
+			}).blur(function (e) {//#7ecef4 蓝色
+				$.ajax({
+					url: "http://localhost:3000/detail?email=" + email.value,
+					type: "get",
+
+					dataType: "json", //自动JSON.parse(),
+					success: function (data) {
+						//console.log(data);
+						if (data == "0") {
+							if ($("#email").val().length == 0) { $("#email").parent().next().html("请输入正确的邮箱格式").css("color", "#ec5541"); } else {
+								a = zys(e, re, "邮箱格式正确", "#8fc31f", "请输入正确的邮箱格式", "#ec5541");
+							}
+						} else {
+							$("#email").parent().next().html("该邮箱已被注册").css("color", "#ec5541");
+						}
+					}
+				})
+				//zys(e, re, "邮箱格式正确", "#8fc31f", "请输入正确的邮箱格式", "#ec5541");//#ec5541红
+			});
+
+			$("#pwd").on("input", function (e) {
+				zys(e, pre, "密码格式正确", "#8fc31f", "密码的长度应为6-16位", "#7ecef4");
+				$("#agpwd").val("");
+			}).blur(function (e) {
+				b = zys(e, pre, "密码格式正确", "#8fc31f", "密码的长度应为6-16位", "#ec5541");
+			});
+			$("#agpwd").blur(function (e) {
+				var str = $(e.target).val();
+				var sstr = $("#pwd").val();
+				if (sstr == "") {
+					$(e.target).parent().next().html("请先输入密码").css("color", "#ec5541"); c = false;
+				} else {
+					if (pre.test(str)) {
+						if (str == sstr) {
+							$(e.target).parent().next().html("输入正确").css("color", "#8fc31f");
+							c = true;
+						} else {
+							$(e.target).parent().next().html("两次密码输入不同").css("color", "#ec5541");
+							c = false;
+						}
+
+					} else {
+						$(e.target).parent().next().html("密码的长度应为6-16位").css("color", "#ec5541");
+						c = false;
+					}
+
+				}
+
+			})
+
+			$("#sbm").click(function () {
+				console.log(a, b, c)
+				if (!a) {
+					$("#email").focus();
+					return
+				};
+				if (!b) {
+					$("#pwd").focus();
+					return
+				};
+				if (!c) {
+					$("#agpwd").focus();
+					return
+				}
+				var data = {};
+				data.email = $("#email").val();
+				data.upwd = $("#pwd").val();
+						$.ajax({
+					url: "http://localhost:3000/reg",
+					type: "post",
+					data: data,
+					dataType: "json", //自动JSON.parse(),
+					success: function (data) {
+						if(data.cord<0){
+							$("#ehintt").html("用户名或密码错误").css({color: "#fff",background:"#ec5541"});
+						}else					
+						window.location.href = "http://127.0.0.1:3000/login.html";
+					}
+				})
+				
+				// if(){
+				// 	$("#email").focus()
+				// }
+				// $("#pwd")
+				// $("#agpwd")
+			})
+			
+			//				$.ajax({
+			//					url: "http://localhost:3000/user/detail?email=" + email.value,
+			//					type: "post",
+			//					data: data,
+			//					dataType: "json", //自动JSON.parse(),
+			//					success: function(data) {
+			//						window.location.href = "http://127.0.0.1:3000/index.html";
+			//					}
+			//				})	
+
+			// function dis1() {onblur
+			//     var xhr = new XMLHttpRequest();
+			//     xhr.onreadystatechange = () => {
+			//         if (xhr.readyState == 4 && xhr.status == 200) {
+			//             var result = xhr.responseText;
+			//             if (result == "1") {
+			//                 ehint.innerHTML = "该邮箱已被注册";
+			//             } else { pt = 1 }
+			//         }
+			//     }
+			//     xhr.open('get', "/user/detail?email=" + email.value, true);
+			//     xhr.send(null);
+			// }
+
+			// function sub() {
+			//     //	console.log(hinte()+"  "+hinta()+"  "+hintp()+"  "+pt);
+			//     if (pt == 0) { ehint.innerHTML = "该邮箱已被注册"; }
+			//     if (hinte() && hinta() && hintp() && pt == 1) {
+			//         pt = 0;
+			//         document.getElementById("formid").submit();
+			//     }
+			// };
+		})
+	</script>
+</body>
+
+</html>

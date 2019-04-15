@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/univ.css">
+	<link rel="stylesheet" href="css/list.css">
+</head>
+
+<body>
+	<div id="headerr">
+
+	</div>
+	<div id="body">
+		<div style="margin:30px auto;text-align: center;font-size: 20px;">
+			<span id="lt"></span>
+
+		</div>
+		<div class="filtrate fl">
+			<div>制作筛选</div>
+			<ul class="tree">
+				<li>
+					<span>选择难度</span><img class="fr" src="img/v.gif" alt="">
+					<div>
+						<a value="31">新手尝试</a>
+						<a value="32">初级入门</a>
+						<a value="33">初中水平</a>
+						<a value="34">中级掌勺</a>
+						<a value="35">高级厨师</a>
+						<a value="36">厨神级</a>
+					</div>
+
+				</li>
+				<li>
+					<span>选择工艺</span><img class="fr" src="img/v.gif" alt="">
+					<div>
+						<a value="11">炒</a>
+						<a value="12">蒸</a>
+						<a value="13">煮</a>
+						<a value="14">炖</a>
+						<a value="15">拌</a>
+						<a value="16">煎</a>
+						<a value="17">炸</a>
+						<a value="18">烘焙</a>
+						<a value="19">烤</a>
+						<a value="10">榨汁</a>
+						<a value="111">其他</a>
+					</div>
+				</li>
+				<li>
+					<span>选择口味</span><img class="fr" src="img/v.gif" alt="">
+					<div>
+						<a value="21">家常味</a>
+						<a value="22">辣味</a>
+						<a value="23">鲜味</a>
+						<a value="24">甜味</a>
+						<a value="25">酸味</a>
+						<a value="26">香味</a>
+						<a value="27">果味</a>
+						<a value="28">怪味</a>
+						<a value="29">其他</a>
+					</div>
+				</li>
+				<li><span>选择时间</span><img class="fr" src="img/v.gif" alt="">
+					<div>
+						<a value="51">5分钟</a>
+						<a value="52">30分钟</a>
+						<a value="53">60分钟</a>
+						<a value="54">数小时</a>
+						<a value="55">一天</a>
+						<a value="56">数天</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div style="float: right; width: 750px;">
+			<div id="list">
+
+			</div>
+			<div style="clear: both;"></div>
+			<div id="paging">
+				
+			</div>
+
+		</div>
+	</div>
+	<iframe src="footer.html" frameborder="0"></iframe>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/header.js"></script>
+	<script>
+		var pag=1;
+		var html6 = '';
+		$(".tree").on("click", "li", function (e) {
+
+			var $li = $(this);
+			if (e.target.tagName != "A") {
+				$li.children("img").next().slideToggle();
+				$li.children("img").toggleClass("open");
+				$li.siblings().children("img").next().slideUp();
+				$li.siblings().children("img").removeClass("open");
+			}
+		})
+		var tid = location.search.split("=")[1].split("&")[0];
+		var arrtid = location.search.split("=")[2];
+		html6 = "";
+		function lists1(mname, arrtid,pag) {
+
+
+			
+		
+			$.ajax({
+				
+				url:'http://127.0.0.1:3000/seek?name=' +mname +'&arrtid=' +arrtid +'&pag=' +pag,
+				type: "get",
+				dataType: "json", //自动JSON.parse(),
+				success: function (data) {
+					var lists = data.data.list;
+					
+					console.log(data);
+					
+					//console.log(data);
+					
+					$("#paging").html("");
+					// if(lists==undefined){
+					// 	html6="div"
+					// }
+					for (var i = 0; i < lists.length; i++) {
+						html6 += `<div class="newhot">
+								<a href="http://127.0.0.1:3000/detail.html?mid=${lists[i].mid}">
+									<div style="width: 232px;height: 232px;overflow: hidden;"><img src="${lists[i].endp}" alt="" style="width:232px"></div>
+									<div class="nhtextout">
+										<div class="nhtext1">
+											<div class="nhtext ntup">
+												<div>${lists[i].mtitle}</div>
+												<div class="gd fl"> ${lists[i].diffculty} ${lists[i].pnum} </div>
+											</div>
+											<div class="nhtext ntdown">
+												<ul>
+													<li class="li li1">${eval("(" + lists[i].step + ")").length}步 / ${lists[i].ctime}</li>
+													<li class="li li2">${lists[i].craft} / ${lists[i].taste}</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>`;
+					}
+					//console.log(html6);
+					
+					$("#list").html("");
+					if(html6.length<1){
+					console.log(html6)
+						$("#list").append(`<div style="margin:30px auto;text-align: center;font-size: 20px;">
+			<span id="lt">暂时没有相应的菜谱哦，需要你来探索呀</span>
+
+		</div>`);
+					}
+					else{
+					$("#list").append(html6);
+				}
+					if(data.data.mus>12&&lists.length>=12){
+						html8=`<a type="submit" class="loginbnt" id="low">加载更多</a>`
+				$("#paging").append(html8);
+				$("#low").click(function(){
+			pag++;
+			lists1(tid, arrtid,pag);
+		})
+					}
+				}
+			})
+		}
+		lists1(tid, arrtid,1);
+		$(".tree").on("click", "a", function () {
+			arrtid = $(this).attr("value");
+			html6 = "";
+			lists1(tid, arrtid,1);
+		})
+		
+	</script>
+</body>
+
+</html>

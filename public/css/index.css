@@ -1,0 +1,296 @@
+#footma>div {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.gd {
+	float: right;
+	font-size: 13px;
+	color: #555;
+	margin-top: 10px;
+
+}
+
+.tabs {
+	font-size: 10px;
+}
+
+.tabs li,
+.tabs div {
+	background: #fff;
+}
+
+.tabs {
+	background: #fff;
+	height: 180px;
+}
+
+#tab li {
+	float: left;
+	list-style: none;
+	margin: 10px 0 10px 0;
+}
+
+#tab li:first-child {
+	margin-left: 10px;
+}
+
+#tab li a {
+	display: inline-block;
+	text-decoration: none;
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #000;
+}
+
+#container {
+	position: relative;
+}
+
+#container ul li {
+	float: left;
+	position: relative;
+}
+
+#container ul li>div {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.7);
+	padding: 5px 0;
+}
+
+#container ul li:hover a {
+	color: red;
+	text-decoration-line: underline
+}
+
+#tab .containerhover {
+	background: red;
+	color: #fff;
+}
+
+#content1 {
+	z-index: 9;
+}
+
+#content1,
+#content2,
+#content3,
+#content4 {
+	width: 950px;
+	height: 120px;
+	position: absolute;
+	top: 50px;
+	left: 25px;
+}
+
+#content1 img,
+#content2 img,
+#content3 img,
+#content4 img {
+	width: 117px;
+	height: 117px;
+}
+
+.borf {
+	border: #999 4px solid;
+	margin: 2px 15px 0 5px;
+}
+
+.banner {
+	width: 1000px;
+	height: 330px;
+	margin: auto;
+	position: relative;
+	cursor: pointer;
+}
+
+.banner1 {
+	width: 1000px;
+	height: 330px;
+	margin: auto;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.bannerhear {
+	width: 1000px;
+	padding: 50px;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 25px;
+	box-sizing: border-box
+}
+
+.banner1 ul {
+	list-style: none;
+	width: 600%;
+	height: 333px;
+	position: absolute;
+}
+
+.banner1 ul li {
+	width: 1000px;
+	height: 333px;
+	float: left;
+}
+
+.arrow .left,
+.arrow .right {
+	width: 173px;
+	height: 75px;
+	background-image: url(../img/download.png);
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.arrow .left {
+	left: -40px;
+	background-position: 0px 7px;
+}
+
+.arrow .right {
+	right: -40px;
+	background-position: -175px 7px;
+}
+
+.lbt {
+	position: relative;
+	float: left;
+	width: 333px;
+}
+
+.lbt img {
+	width: 100%;
+}
+
+.lbt a {
+	display: block;
+	text-decoration: none;
+	color: #000;
+	font-size: 25px;
+}
+
+.lbt a:hover {
+	display: block;
+	text-decoration: underline;
+	color: red;
+	font-size: 25px;
+}
+
+.lbt span {
+	font-size: 13px;
+	color: #555
+}
+
+.lbt div:not(:first-child) {
+	background: rgba(255, 255, 255, 0.7);
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 10px 30px;
+}
+
+.newhot {
+	margin: auto;
+	width: 232px;
+	height: 332px;
+}
+
+.nhtextout {
+	width: 232px;
+	height: 100px;
+	overflow: hidden;
+	margin-top: -4px;
+}
+
+.nhtext {
+	width: 232px;
+	height: 100px;
+	padding: 15px;
+	box-sizing: border-box
+}
+
+.ntup {
+	background: #fff;
+}
+
+.ntdown {
+	background: #ddd;
+}
+
+.li {
+	list-style: none;
+	height: 32px;
+	width: 208px;
+	text-indent: 32px;
+	line-height: 32px;
+	color: #666;
+	font-size: 14px;
+}
+
+.nhtext1 {
+	transition: 0.4s linear
+}
+
+.newhot:hover a>div>div {
+	transform: translateY(-100px);
+}
+
+.li1 {
+	background: url(../img/bq.png) -10px -127px no-repeat
+}
+
+.li2 {
+	background: url(../img/bq.png) -10px -43px no-repeat
+}
+
+.bannertow {
+	position: relative;
+	overflow: hidden;
+}
+
+.bannertow>div:first-child {
+	float: right;
+}
+
+.bannerpic1>div {
+	float: left;
+}
+
+.bannerpic {
+	width: 1000px;
+	height: 770px;
+}
+
+.bannerpic1 {
+	width: 2000px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+.bannertow {
+	width: 1000px;
+	margin: auto;
+}
+
+.banpic1 {
+	width: 1000px;
+}
+
+.newhot {
+	float: left;
+	margin-bottom: 20px;
+}
+
+.newhot:not(:nth-child(4n)) {
+	margin-right: 24px;
+}
